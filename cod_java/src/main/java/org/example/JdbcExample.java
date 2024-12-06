@@ -21,7 +21,7 @@ public class JdbcExample {
 
             // Creează un Statement și execută o interogare
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM Contacts";
+            String query = "SELECT * FROM persoana";
             ResultSet resultSet = statement.executeQuery(query);
 
             // Afișează rezultatele interogării
