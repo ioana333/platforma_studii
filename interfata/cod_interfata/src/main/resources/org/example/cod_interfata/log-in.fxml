@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<?import java.awt.Insets?>
+<HBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.LogIn">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="200.0" fitWidth="210.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../resurse/IMG-20241209-WA0003.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="56.0" layoutY="14.0" text="Log In" textAlignment="CENTER" textFill="#2d06ae">
+               <font>
+                  <Font name="Trebuchet MS Bold" size="26.0" />
+               </font>
+            </Label>
+            <TextField fx:id="email" layoutX="26.0" layoutY="64.0" promptText="email" />
+            <TextField fx:id="password" accessibleRole="PASSWORD_FIELD" layoutX="26.0" layoutY="107.0" promptText="password" />
+            <Button fx:id="buton_login" layoutX="72.0" layoutY="147.0" mnemonicParsing="false" style="-fx-background-color: #2d06ae;" text="Log In" textFill="WHITE" onAction="#handleLogIn">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
