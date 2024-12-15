@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="0227b7f4-f2fe-47f3-9714-ae8bfe10f95c" name="@localhost (DDL) Mapping">
+      <data-sources db="b2edc42a-0ff0-436e-a050-9583995354a9" ddl="56e820da-2d81-4e74-9203-26dd11ac4f60" />
+      <scope>
+        <node kind="schema" qname="platforma_studii" />
+      </scope>
+    </mapping>
+  </component>
+</project>
