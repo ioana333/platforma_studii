@@ -3,32 +3,36 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<HBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.LogIn">
+<HBox prefHeight="400.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.LogIn">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="436.0">
+      <AnchorPane prefHeight="343.0" prefWidth="601.0">
          <children>
-            <ImageView fitHeight="204.0" fitWidth="316.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="508.0" fitWidth="685.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../resurse/studenti.png" />
+                  <Image url="@fundal.png" />
                </image>
             </ImageView>
-         </children></AnchorPane>
-      <AnchorPane prefHeight="400.0" prefWidth="403.0">
-         <children>
-            <Label layoutX="99.0" layoutY="56.0" text="Log In" textAlignment="CENTER" textFill="#2d06ae">
+            <Rectangle arcHeight="100.0" arcWidth="100.0" fill="WHITE" height="337.0" layoutX="398.0" layoutY="37.0" stroke="#3300ff" strokeType="INSIDE" strokeWidth="3.0" width="257.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Rectangle>
+            <Label layoutX="476.0" layoutY="73.0" text="Log In" textAlignment="CENTER" textFill="#2d06ae">
                <font>
                   <Font name="Trebuchet MS Bold" size="36.0" />
                </font>
             </Label>
-            <TextField fx:id="email" layoutX="30.0" layoutY="129.0" prefHeight="25.0" prefWidth="238.0" promptText="email" />
-            <TextField fx:id="password" accessibleRole="PASSWORD_FIELD" layoutX="30.0" layoutY="188.0" prefHeight="25.0" prefWidth="238.0" promptText="password" />
-            <Button fx:id="buton_login" layoutX="121.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleLogIn" style="-fx-background-color: #2d06ae;" text="Log In" textFill="WHITE">
+            <TextField fx:id="email" layoutX="423.0" layoutY="149.0" prefHeight="25.0" prefWidth="208.0" promptText="email" />
+            <TextField fx:id="password" accessibleRole="PASSWORD_FIELD" layoutX="423.0" layoutY="206.0" prefHeight="25.0" prefWidth="208.0" promptText="password" />
+            <Button fx:id="buton_login" layoutX="490.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleLogIn" prefHeight="25.0" prefWidth="73.0" style="-fx-background-color: #2d06ae;" text="Log In" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

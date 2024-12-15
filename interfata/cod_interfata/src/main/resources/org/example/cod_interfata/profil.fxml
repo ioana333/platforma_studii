@@ -4,72 +4,99 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.cod_interfata.ProfilController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="750.0" style="-fx-background-color: white;" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.ProfilController">
   <tabs>
     <Tab text="PROFIL">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="600.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@style.css">
                <children>
-                  <Label fx:id="an_studiu" layoutX="38.0" layoutY="90.0" text="An studiu: 1">
+                  <ImageView fitHeight="478.0" fitWidth="644.0" layoutX="116.0" layoutY="-43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@profilFundal.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="an_studiu" layoutX="47.0" layoutY="80.0" text="An studiu: 1">
                      <font>
                         <Font name="Arial Black" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nume_prenume" layoutX="14.0" layoutY="8.0" text="Nume Prenume">
+                  <Label fx:id="nume_prenume" layoutX="29.0" layoutY="15.0" text="Nume Prenume">
                      <font>
                         <Font name="Arial Black" size="32.0" />
                      </font>
                   </Label>
-                  <Button fx:id="buton_logout" layoutX="509.0" layoutY="75.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="71.0" style="-fx-background-color: #2d06ae;" text="LogOut" textFill="WHITE">
+                  <Button fx:id="buton_logout" layoutX="679.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="71.0" style="-fx-background-color: #b6ceff;" text="LogOut">
                      <font>
                         <Font name="Arial Black" size="12.0" />
                      </font>
                   </Button>
-                  <Label fx:id="grupa" layoutX="38.0" layoutY="113.0" text="grupa:">
+                  <Label fx:id="grupa" layoutX="47.0" layoutY="103.0" text="grupa:">
                      <font>
                         <Font name="Arial Black" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="email_afisat" layoutX="38.0" layoutY="136.0" text="email:">
+                  <Label fx:id="email_afisat" layoutX="47.0" layoutY="126.0" text="email:">
                      <font>
                         <Font name="Arial Black" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="telefon" layoutX="38.0" layoutY="159.0" text="telefon:">
+                  <Label fx:id="telefon" layoutX="47.0" layoutY="149.0" text="telefon:">
                      <font>
                         <Font name="Arial Black" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="telefon_contact" layoutX="38.0" layoutY="182.0" text="telefon de contact:">
+                  <Label fx:id="telefon_contact" layoutX="47.0" layoutY="172.0" text="telefon de contact:">
                      <font>
                         <Font name="Arial Black" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="adresa" layoutX="38.0" layoutY="228.0" text="Adresa:">
+                  <Label fx:id="adresa" layoutX="47.0" layoutY="218.0" text="Adresa:">
                      <font>
                         <Font name="Arial Black" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="cnp" layoutX="38.0" layoutY="282.0" text="CNP:">
+                  <Label fx:id="cnp" layoutX="47.0" layoutY="272.0" text="CNP:">
                      <font>
                         <Font name="Arial Black" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="iban" layoutX="38.0" layoutY="305.0" text="IBAN:">
+                  <Label fx:id="iban" layoutX="47.0" layoutY="295.0" text="IBAN:">
                      <font>
                         <Font name="Arial Black" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="496.0" layoutY="19.0" text="- student" textFill="#bcbaba">
+                     <font>
+                        <Font name="Arial Black" size="27.0" />
                      </font>
                   </Label>
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Untitled Tab 2">
+    <Tab fx:id="tab_orar" text="ORAR">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css" />
       </content>
     </Tab>
+      <Tab text="CURSURI">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css" />
+         </content>
+      </Tab>
+      <Tab text="NOTE">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css" />
+         </content>
+      </Tab>
+      <Tab text="GRUPE DE STUDIU">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css" />
+         </content>
+      </Tab>
   </tabs>
 </TabPane>

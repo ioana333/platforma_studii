@@ -1,0 +1,34 @@
+
+
+/* Schimbă stilul pentru TabPane */
+.tab-pane {
+    -fx-tab-min-height: 35px; /* Înălțimea minimă a taburilor */
+    -fx-tab-max-height: 35px; /* Înălțimea maximă a taburilor */
+}
+
+/* Stil pentru taburile neselectate */
+.tab {
+    -fx-text-fill: #e5e5e5;
+    -fx-background-color: #b6ceff; /* Fundal pentru taburile neselectate */
+    -fx-padding: 5px 15px; /* Dimensiunea taburilor */
+    -fx-font-size: 14px; /* Dimensiunea fontului */
+    -fx-font-family: "Arial Black";
+    -fx-border-color: transparent; /* Elimină border-ul implicit */
+}
+
+/* Stil pentru tabul selectat */
+.tab:selected {
+    -fx-background-color: white; /* Fundal pentru tabul selectat */
+    -fx-text-fill: #0078d7; /* Culoarea textului pentru tabul selectat */
+
+    -fx-font-size: 16px; /* Dimensiunea fontului */
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-padding: 5px 20px; /* Dimensiunea tabului selectat */
+    -fx-border-color: transparent; /* Elimină border-ul implicit */
+}
+
+/* Stil pentru hover (opțional) */
+.tab:hover {
+    -fx-background-color: #d3d3d3; /* Fundal când tabul este hover-uit */
+}
