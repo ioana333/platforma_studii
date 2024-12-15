@@ -9,29 +9,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<?import java.awt.Insets?>
-<HBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.LogIn">
+<HBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.LogIn">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane prefHeight="400.0" prefWidth="436.0">
          <children>
-            <ImageView fitHeight="200.0" fitWidth="210.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="204.0" fitWidth="316.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../resurse/IMG-20241209-WA0003.png" />
+                  <Image url="@../../../../../../../resurse/studenti.png" />
                </image>
             </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         </children></AnchorPane>
+      <AnchorPane prefHeight="400.0" prefWidth="403.0">
          <children>
-            <Label layoutX="56.0" layoutY="14.0" text="Log In" textAlignment="CENTER" textFill="#2d06ae">
+            <Label layoutX="99.0" layoutY="56.0" text="Log In" textAlignment="CENTER" textFill="#2d06ae">
                <font>
-                  <Font name="Trebuchet MS Bold" size="26.0" />
+                  <Font name="Trebuchet MS Bold" size="36.0" />
                </font>
             </Label>
-            <TextField fx:id="email" layoutX="26.0" layoutY="64.0" promptText="email" />
-            <TextField fx:id="password" accessibleRole="PASSWORD_FIELD" layoutX="26.0" layoutY="107.0" promptText="password" />
-            <Button fx:id="buton_login" layoutX="72.0" layoutY="147.0" mnemonicParsing="false" style="-fx-background-color: #2d06ae;" text="Log In" textFill="WHITE" onAction="#handleLogIn">
+            <TextField fx:id="email" layoutX="30.0" layoutY="129.0" prefHeight="25.0" prefWidth="238.0" promptText="email" />
+            <TextField fx:id="password" accessibleRole="PASSWORD_FIELD" layoutX="30.0" layoutY="188.0" prefHeight="25.0" prefWidth="238.0" promptText="password" />
+            <Button fx:id="buton_login" layoutX="121.0" layoutY="265.0" mnemonicParsing="false" onAction="#handleLogIn" style="-fx-background-color: #2d06ae;" text="Log In" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
