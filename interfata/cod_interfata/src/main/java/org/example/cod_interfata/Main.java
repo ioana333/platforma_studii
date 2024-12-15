@@ -17,7 +17,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("log-in.fxml"));
         stage.setTitle("Logheaza-te!!");
 
-        stage.setScene(new Scene(root, 600, 400));
+        stage.setScene(new Scene(root, 685, 400));
         stage.show();
 
     }

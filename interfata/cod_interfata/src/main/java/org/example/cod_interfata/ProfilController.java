@@ -25,7 +25,7 @@ public class ProfilController implements Initializable {
             @Override
             public void handle(ActionEvent actionEvent) {
 
-                BDconection.changeScene(actionEvent, "log-in.fxml", null, null, null);
+                BDconection.changeScene(actionEvent, "log-in.fxml", null, null, null, 685, 400);
 
             }
         });

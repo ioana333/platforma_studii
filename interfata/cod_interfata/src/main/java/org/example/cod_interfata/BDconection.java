@@ -4,11 +4,13 @@ import com.sun.source.tree.TryTree;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -20,7 +22,7 @@ public class BDconection {
     @FXML
     private static Label nume_prenume;
 
-    public static void changeScene(ActionEvent event, String fxmlFile, Integer id_user, String nume, String prenume) {
+    public static void changeScene(ActionEvent event, String fxmlFile, Integer id_user, String nume, String prenume, double w, double h) {
 
         Parent root = null;
 
@@ -52,7 +54,8 @@ public class BDconection {
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Platforma Studii");
-        stage.setScene(new Scene(root, 600, 400));
+
+        stage.setScene(new Scene(root, w, h));
 
         stage.show();
 
@@ -93,7 +96,9 @@ public class BDconection {
 
                     if(password.equals(parola))
                     {
-                        changeScene(event, "profil.fxml", id, nume, prenume);
+                        double width = 750;
+                        double height = 450;
+                        changeScene(event, "profil.fxml", id, nume, prenume, width, height);
                     }
                     else
                     {
@@ -158,7 +163,7 @@ public class BDconection {
 
         try
         {
-            String email = "maria.ionescu@example.com";
+            String email = "ioana333@gmail.com";
             String url = "jdbc:mysql://localhost:3306/platforma_studii";
 
             conection = DriverManager.getConnection(url, "root", "Padurarul31+");
