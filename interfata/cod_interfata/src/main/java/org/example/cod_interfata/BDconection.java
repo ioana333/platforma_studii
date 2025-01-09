@@ -33,7 +33,11 @@ public class BDconection {
                 FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
                 root = loader.load();
                 ProfilController controller = loader.getController();
+<<<<<<< Updated upstream
                 controller.setUserInfo(id_user, nume, prenume, anStudiu, grupa, email, telefon, telefonContact, adresa, cnp, iban);
+=======
+                controller.setUserInfo(nume, prenume, anStudiu, grupa, email, telefon, telefonContact, adresa, cnp, iban);
+>>>>>>> Stashed changes
 
                 //root = FXMLLoader.load(BDconection.class.getResource(fxmlFile));
 

@@ -87,12 +87,17 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
                <children>
+<<<<<<< Updated upstream
                   <Button fx:id="buton_descarcareActivitati" layoutX="568.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="Descarca Activitatile" textFill="WHITE" />
+=======
+                  <Button layoutX="568.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="Descarca Activitatile" textFill="WHITE" />
+>>>>>>> Stashed changes
                   <Label layoutX="23.0" layoutY="27.0" text="Vezi programul pentru data de...">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
+<<<<<<< Updated upstream
                   <DatePicker fx:id="data_activitati" layoutX="243.0" layoutY="25.0" />
                   <TableView fx:id="tabel_orar" layoutX="43.0" layoutY="75.0" prefHeight="307.0" prefWidth="684.0">
                     <columns>
@@ -102,6 +107,15 @@
                     </columns>
                   </TableView>
                   <Button fx:id="butonCautaProgram" layoutX="424.0" layoutY="25.0" mnemonicParsing="false" onAction="#afiseazaOre" style="-fx-background-color: #b6ceff;" text="OK" />
+=======
+                  <DatePicker layoutX="243.0" layoutY="25.0" />
+                  <TableView layoutX="43.0" layoutY="75.0" prefHeight="307.0" prefWidth="684.0">
+                    <columns>
+                      <TableColumn prefWidth="518.0" text="ACTIVITATE" />
+                      <TableColumn prefWidth="165.0" text="ORA" />
+                    </columns>
+                  </TableView>
+>>>>>>> Stashed changes
                </children></AnchorPane>
       </content>
     </Tab>
@@ -165,10 +179,17 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
                <children>
+<<<<<<< Updated upstream
                   <TableView layoutX="86.0" layoutY="103.0" prefHeight="260.0" prefWidth="570.0">
                     <columns>
                       <TableColumn prefWidth="433.0" text="Activitate" />
                         <TableColumn prefWidth="136.0" text="Inscrie-te" />
+=======
+                  <TableView layoutX="160.0" layoutY="103.0" prefHeight="260.0" prefWidth="409.0">
+                    <columns>
+                      <TableColumn prefWidth="288.0" text="Activitate" />
+                        <TableColumn prefWidth="119.0" text="Inscrie-te" />
+>>>>>>> Stashed changes
                     </columns>
                   </TableView>
                   <Button layoutX="237.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA O ACTIVITATE">
