@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -80,22 +85,103 @@
     </Tab>
     <Tab fx:id="tab_orar" text="ORAR">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
+               <children>
+                  <Button layoutX="568.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="Descarca Activitatile" textFill="WHITE" />
+                  <Label layoutX="23.0" layoutY="27.0" text="Vezi programul pentru data de...">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <DatePicker layoutX="243.0" layoutY="25.0" />
+                  <TableView layoutX="43.0" layoutY="75.0" prefHeight="307.0" prefWidth="684.0">
+                    <columns>
+                      <TableColumn prefWidth="518.0" text="ACTIVITATE" />
+                      <TableColumn prefWidth="165.0" text="ORA" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="424.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="OK" />
+               </children></AnchorPane>
       </content>
     </Tab>
       <Tab text="CURSURI">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
+               <children>
+                  <Separator layoutX="105.0" orientation="VERTICAL" prefHeight="416.0" prefWidth="8.0" />
+                  <Separator layoutX="632.0" orientation="VERTICAL" prefHeight="416.0" prefWidth="8.0" />
+                  <TextField fx:id="cauta_curs" layoutX="150.0" layoutY="59.0" prefHeight="25.0" prefWidth="378.0" />
+                  <Label layoutX="293.0" layoutY="14.0" text="Cauti un curs?">
+                     <font>
+                        <Font name="Arial Black" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="cauta" layoutX="546.0" layoutY="56.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="cauta">
+                     <font>
+                        <Font name="Arial Black" size="14.0" />
+                     </font>
+                  </Button>
+                  <TableView layoutX="150.0" layoutY="122.0" prefHeight="200.0" prefWidth="461.0">
+                    <columns>
+                      <TableColumn fx:id="nume_curs" prefWidth="381.0" text="CURS" />
+                        <TableColumn fx:id="buton_inscriere" prefWidth="79.0" text="INSCRIE-TE" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
          </content>
       </Tab>
       <Tab text="NOTE">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
+               <children>
+                  <TableView layoutX="35.0" layoutY="30.0" prefHeight="348.0" prefWidth="664.0">
+                    <columns>
+                      <TableColumn prefWidth="218.0" text="DISCIPLINA" />
+                      <TableColumn minWidth="0.0" prefWidth="108.0" text="CURS" />
+                        <TableColumn prefWidth="114.0" text="SEMINAR" />
+                        <TableColumn prefWidth="120.0" text="LABORATOR" />
+                        <TableColumn prefWidth="102.0" text="NOTA FINALA" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
          </content>
       </Tab>
       <Tab text="GRUPE DE STUDIU">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css" />
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
+               <children>
+                  <TableView fx:id="grupe_de_studiu" layoutX="31.0" layoutY="34.0" onSort="#setTabelgrupe" prefHeight="319.0" prefWidth="677.0">
+                    <columns>
+                      <TableColumn prefWidth="331.0" text="GRUPA DE STUDIU" />
+                      <TableColumn prefWidth="210.0" text="VIZUALIZARE MEMBRII" />
+                        <TableColumn prefWidth="133.0" text="MESAJ" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="ACTIVITATI">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
+               <children>
+                  <TableView layoutX="86.0" layoutY="103.0" prefHeight="260.0" prefWidth="570.0">
+                    <columns>
+                      <TableColumn prefWidth="433.0" text="Activitate" />
+                        <TableColumn prefWidth="136.0" text="Inscrie-te" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="237.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA O ACTIVITATE">
+                     <font>
+                        <Font name="Arial Black" size="18.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="276.0" layoutY="74.0" text="SAU INSCRIE-TE...">
+                     <font>
+                        <Font name="Arial Black" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </content>
       </Tab>
   </tabs>
