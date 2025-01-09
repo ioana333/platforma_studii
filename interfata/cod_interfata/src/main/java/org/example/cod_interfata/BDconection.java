@@ -22,6 +22,45 @@ public class BDconection {
     @FXML
     private static Label nume_prenume;
 
+    public static void changeSceneStudent(ActionEvent event, String fxmlFile, Integer id_user, String nume, String prenume, Integer anStudiu, String grupa, String email, String telefon, String telefonContact, String adresa, String cnp, String iban, double w, double h) {
+
+        Parent root = null;
+
+        if(id_user != null)
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
+                root = loader.load();
+                ProfilController controller = loader.getController();
+                controller.setUserInfo(nume, prenume, anStudiu, grupa, email, telefon, telefonContact, adresa, cnp, iban);
+
+                //root = FXMLLoader.load(BDconection.class.getResource(fxmlFile));
+
+            }
+            catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            try {
+                FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
+                root = loader.load(); // Inițializează root
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Platforma Studii");
+
+        stage.setScene(new Scene(root, w, h));
+
+        stage.show();
+
+    }
+
     public static void changeScene(ActionEvent event, String fxmlFile, Integer id_user, String nume, String prenume, double w, double h) {
 
         Parent root = null;
@@ -33,7 +72,6 @@ public class BDconection {
                 FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
                 root = loader.load();
                 ProfilController controller = loader.getController();
-                controller.setUserInfo(nume, prenume);
 
                 //root = FXMLLoader.load(BDconection.class.getResource(fxmlFile));
 
@@ -67,14 +105,15 @@ public class BDconection {
         Connection conection = null;
         PreparedStatement preparedStatement = null;
         ResultSet rezultat = null;
+        ResultSet date_student = null;
 
         try
         {
             String url = "jdbc:mysql://localhost:3306/platforma_studii";
 
             conection = DriverManager.getConnection(url, "root", "Padurarul31+");
-            preparedStatement = conection.prepareStatement("select user_id, nume, prenume, parola from utilizatori where email = ?");
 
+            preparedStatement = conection.prepareStatement("select * from utilizatori where email = ?");
             preparedStatement.setString(1, email);
             rezultat = preparedStatement.executeQuery();
 
@@ -89,16 +128,52 @@ public class BDconection {
             {
                 while(rezultat.next())
                 {
+
                     Integer id = rezultat.getInt("user_id");
                     String nume = rezultat.getString("nume");
                     String prenume = rezultat.getString("prenume");
                     String parola = rezultat.getString("parola");
+                    String rol = rezultat.getString("rol");
+                    String telefon = rezultat.getString("telefon");
+                    String telefonContact = rezultat.getString("nr_contract");
+                    String adresa = rezultat.getString("adresa_id");
+                    String cnp = rezultat.getString("CNP");
+                    String iban = rezultat.getString("iban");
 
                     if(password.equals(parola))
                     {
                         double width = 750;
                         double height = 450;
-                        changeScene(event, "profil.fxml", id, nume, prenume, width, height);
+
+                        if (rol.equals("student"))
+                        {
+                            preparedStatement = conection.prepareStatement("select an_studiu, grupa, nr_ore from studenti where student_id = ?");
+
+                            preparedStatement.setInt(1, id);
+                            date_student = preparedStatement.executeQuery();
+
+                            Integer anStudiu = 0;
+                            String grupa = null ;
+                            Integer nr_ore = 0;
+
+                            while(date_student.next())
+                            {
+                                anStudiu = date_student.getInt("an_studiu");
+                                grupa = date_student.getString("grupa");
+                                nr_ore = date_student.getInt("nr_ore");
+                            }
+
+                            changeSceneStudent(event, "profil.fxml", id, nume, prenume, anStudiu, grupa, email, telefon, telefonContact, adresa, cnp, iban, width, height);
+                        }
+                        else
+                        {
+                            System.out.println("Nu esti student");
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setContentText("<3");
+                            alert.show();
+                        }
+
+
                     }
                     else
                     {
