@@ -7,16 +7,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-<<<<<<< Updated upstream
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
-=======
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SortEvent;
-import javafx.scene.control.TableView;
->>>>>>> Stashed changes
 
 import java.net.URL;
 import java.sql.*;
@@ -66,11 +59,7 @@ public class ProfilController implements Initializable {
 
     }
 
-<<<<<<< Updated upstream
     public void setUserInfo(Integer id,String  nume, String prenume, Integer anStudiu, String grupa, String email, String telefon, String telefonContact, String adresa, String cnp, String iban) {
-=======
-    public void setUserInfo(String nume, String prenume, Integer anStudiu, String grupa, String email, String telefon, String telefonContact, String adresa, String cnp, String iban) {
->>>>>>> Stashed changes
 
         nume_prenume.setText(nume + " " + prenume);
         an_studiu.setText("An studiu: " + anStudiu.toString());
@@ -81,17 +70,13 @@ public class ProfilController implements Initializable {
         this.adresa.setText("Adresa: " + adresa);
         this.cnp.setText("CNP: " + cnp);
         this.iban.setText("IBAN: " + iban);
-<<<<<<< Updated upstream
 
         this.id_student = id;
-=======
->>>>>>> Stashed changes
     }
 
     @FXML
     private DatePicker data_activitati;
 
-<<<<<<< Updated upstream
     @FXML
     private Button butonCautaProgram;
 
@@ -185,8 +170,6 @@ public class ProfilController implements Initializable {
         loadActivitati(id_student, String.valueOf(data_activitati));
     }
 
-=======
->>>>>>> Stashed changes
     public void setTabelgrupe(SortEvent<TableView> tableViewSortEvent) {
     }
 }
