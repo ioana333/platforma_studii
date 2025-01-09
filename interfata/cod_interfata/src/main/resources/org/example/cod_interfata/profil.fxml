@@ -100,7 +100,10 @@
                       <TableColumn prefWidth="165.0" text="ORA" />
                     </columns>
                   </TableView>
+<<<<<<< Updated upstream
                   <Button layoutX="424.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="OK" />
+=======
+>>>>>>> Stashed changes
                </children></AnchorPane>
       </content>
     </Tab>
@@ -164,10 +167,17 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
                <children>
+<<<<<<< Updated upstream
                   <TableView layoutX="86.0" layoutY="103.0" prefHeight="260.0" prefWidth="570.0">
                     <columns>
                       <TableColumn prefWidth="433.0" text="Activitate" />
                         <TableColumn prefWidth="136.0" text="Inscrie-te" />
+=======
+                  <TableView layoutX="160.0" layoutY="103.0" prefHeight="260.0" prefWidth="409.0">
+                    <columns>
+                      <TableColumn prefWidth="288.0" text="Activitate" />
+                        <TableColumn prefWidth="119.0" text="Inscrie-te" />
+>>>>>>> Stashed changes
                     </columns>
                   </TableView>
                   <Button layoutX="237.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA O ACTIVITATE">
