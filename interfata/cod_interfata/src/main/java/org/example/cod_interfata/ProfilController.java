@@ -84,39 +84,33 @@ public class ProfilController implements Initializable {
     private Button buton_descarcareActivitati;
 
     @FXML
-    private TableView<Map<String, Object>> tabel_orar;
+    private TableView<ActivitateOrar> tabel_orar;
 
     @FXML
-    private TableColumn<Map<String, Object>, String> activitate_orar;
+    private TableColumn<ActivitateOrar, String> activitate_orar;
 
     @FXML
-    private TableColumn<Map<String, Object>, String> ora_activitate_orar;
+    private TableColumn<ActivitateOrar, String> ora_activitate_orar;
 
     @FXML
-    private TableColumn<Map<String, Object>, String> disciplina_orar;
-
-    private ObservableList<Map<String, Object>> activitati = FXCollections.observableArrayList();
+    private TableColumn<ActivitateOrar, String> disciplina_orar;
 
 
     @FXML
     public void initialize()
     {
-        disciplina_orar.setCellValueFactory(cellData ->
-                new SimpleStringProperty((String) cellData.getValue().get("DISCIPLINA"))
-        );
-        activitate_orar.setCellValueFactory(cellData ->
-                new SimpleStringProperty((String) cellData.getValue().get("ACTIVITATE"))
-        );
-        ora_activitate_orar.setCellValueFactory(cellData ->
-                new SimpleStringProperty((String) cellData.getValue().get("ORA"))
-        );
-        tabel_orar.setItems(activitati);
+
+        disciplina_orar.setCellValueFactory(new PropertyValueFactory<ActivitateOrar, String>("disciplina"));
+        activitate_orar.setCellValueFactory(new PropertyValueFactory<ActivitateOrar, String>("activitate"));
+        ora_activitate_orar.setCellValueFactory(new PropertyValueFactory<ActivitateOrar, String>("ora"));
 
     }
 
     public void loadActivitati(int studentId, String dataAleasa) {
 
-        activitati.clear();
+        tabel_orar.getItems().clear();
+        initialize();
+        tabel_orar.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         Connection conection = null;
         PreparedStatement preparedStatement = null;
@@ -135,12 +129,17 @@ public class ProfilController implements Initializable {
             rs = preparedStatement.executeQuery();
 
 
-            while (rs.next()) {
+            while (rs.next())
+            {
                 Map<String, Object> row = new HashMap<>();
-                row.put("DISCIPLINA", rs.getString("NumeDisciplina"));
-                row.put("ACTIVITATE", rs.getString("TipActivitate"));
-                row.put("ORA", rs.getString("OraInceput") + " - " + rs.getString("OraSfarsit"));
-                activitati.add(row);
+                String dis = rs.getString("NumeDisciplina");
+                String act =  rs.getString("TipActivitate");
+                String ora = rs.getString("OraInceput");
+
+                System.out.println(dis + " " + act + " " + ora);
+
+                tabel_orar.getItems().add(new ActivitateOrar(act, dis, ora));
+
             }
 
         } catch (SQLException e) {
@@ -157,13 +156,17 @@ public class ProfilController implements Initializable {
     }
 
     @FXML
-    private void afiseazaOre(ActionEvent event) {
+    private void afiseazaOre(ActionEvent event)
+    {
         System.out.println("buton apasat2");
 
         LocalDate dataAleasa = data_activitati.getValue();
-        if (dataAleasa != null) {
+        if (dataAleasa != null)
+        {
             loadActivitati(id_student, dataAleasa.toString());
-        } else {
+        }
+        else
+        {
             System.out.println("Nu a fost selectată nicio dată.");
         }
 
