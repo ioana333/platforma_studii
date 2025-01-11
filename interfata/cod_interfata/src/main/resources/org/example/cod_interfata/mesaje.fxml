@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="401.0" prefWidth="316.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.MesajeController">
+   <children>
+      <SplitPane dividerPositions="0.8844221105527639" layoutY="1.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="317.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="328.0" style="-fx-background-color: linear-gradient(from 0% 0% to 50% 100%, #5865F2, #410075);">
+               <children>
+                  <TableView fx:id="tabel_mesaje" prefHeight="349.0" prefWidth="315.0" style="-fx-background-color: #b6ceff;">
+                    <columns>
+                      <TableColumn fx:id="mesaje_afisate" prefWidth="314.0" text="MESAJE" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="91.0" prefWidth="328.0" style="-fx-background-color: #b6ceff;">
+               <children>
+                  <TextField fx:id="camp_mesaj" layoutY="3.0" prefHeight="37.0" prefWidth="255.0" promptText="Scrie un mesaj..." style="-fx-background-color: white; -fx-background-radius: 100;">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="trimite_mesaj" layoutX="259.0" layoutY="3.0" mnemonicParsing="false" onAction="#trimiteMesaj" prefHeight="37.0" prefWidth="56.0" style="-fx-background-color: #212121; -fx-background-radius: 100;" text="SEND" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

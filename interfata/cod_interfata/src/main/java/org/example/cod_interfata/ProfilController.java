@@ -6,11 +6,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -173,6 +180,643 @@ public class ProfilController implements Initializable {
         loadActivitati(id_student, String.valueOf(data_activitati));
     }
 
+    private void downloadData(Integer studentId, String dataAleasa, String file)
+    {
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try (FileWriter writer = new FileWriter(file)) {
+            // Conectare la baza de date
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            // Pregătire procedură stocată
+            preparedStatement = conection.prepareStatement("call vizualizare_activitati_student(?, ?)");
+            preparedStatement.setInt(1, studentId);
+            preparedStatement.setString(2, dataAleasa);
+
+            rs = preparedStatement.executeQuery();
+
+            // Scriere antet în fișierul CSV
+            writer.write("NumeDisciplina,TipActivitate,OraInceput\n");
+
+            // Iterare prin rezultate și scriere în fișier
+            while (rs.next()) {
+                String dis = rs.getString("NumeDisciplina");
+                String act = rs.getString("TipActivitate");
+                String ora = rs.getString("OraInceput");
+
+                writer.write(String.format("%s,%s,%s\n", dis, act, ora));
+            }
+
+            System.out.println("Datele au fost exportate în: " + file);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void descarcaActivitati(ActionEvent event) {
+        System.out.println("Buton apăsat");
+
+        LocalDate dataAleasa = data_activitati.getValue();
+        if (dataAleasa != null) {
+            String dataStr = dataAleasa.toString();
+
+            String fileName = "export.csv";
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save File");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+            File file = fileChooser.showSaveDialog(null);
+            if (file != null) {
+                downloadData(id_student, dataStr, file.getAbsolutePath());
+            }
+
+            downloadData(id_student, dataStr, fileName);
+        } else {
+            System.out.println("Nu a fost selectată nicio dată.");
+        }
+    }
+
     public void setTabelgrupe(SortEvent<TableView> tableViewSortEvent) {
     }
+
+    @FXML
+    private TextField cauta_curs_nume;
+
+    @FXML
+    private Button cauta;
+
+    @FXML
+    private Label nume_curs;
+
+    @FXML
+    private TextArea descriere_curs;
+
+    @FXML
+    private Label data_inceput_curs;
+
+    @FXML
+    private Label data_final_curs;
+
+    @FXML
+    private Label pondere_curs;
+
+    @FXML
+    private Label pondere_seminar;
+
+    @FXML
+    private Label pondere_laborator;
+
+    @FXML
+    private TableView<Profesor> tabel_profesori;
+    @FXML
+    private TableColumn<Profesor, String> colProfesorCurs;
+    @FXML
+    private TableColumn<Profesor, String> colProfesorSeminar;
+    @FXML
+    private TableColumn<Profesor, String> colProfesorLaborator;
+
+    @FXML
+    public void initialize_table() {
+        colProfesorCurs.setCellValueFactory(new PropertyValueFactory<>("profesorCurs"));
+        colProfesorSeminar.setCellValueFactory(new PropertyValueFactory<>("profesorSeminar"));
+        colProfesorLaborator.setCellValueFactory(new PropertyValueFactory<>("profesorLaborator"));
+    }
+
+    @FXML
+    private void cautaCurs(String numeDisciplina)
+    {
+        //String numeDisciplina = cauta_curs_nume.getText();
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+            connection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            // Apelăm procedura stocată
+            callableStatement = connection.prepareCall("{CALL afisare_informatii_disciplina(?)}");
+            callableStatement.setString(1, numeDisciplina);
+
+            boolean hasResults = callableStatement.execute();
+            int step = 0;
+
+            // Resetăm tabelul
+            tabel_profesori.getItems().clear();
+
+            ObservableList<Profesor> profesoriList = FXCollections.observableArrayList();
+
+            while (hasResults) {
+                resultSet = callableStatement.getResultSet();
+
+                if (step == 0) { // Profesori curs
+                    while (resultSet.next())
+                    {
+                        String profesorCurs = resultSet.getString("Nume profesori curs");
+                        profesoriList.add(new Profesor(profesorCurs, "", ""));
+                    }
+                } else if (step == 1) { // Profesori seminar
+                    int index = 0;
+                    while (resultSet.next())
+                    {
+                        String profesorSeminar = resultSet.getString("Nume profesori seminar");
+                        // Adăugăm sau actualizăm lista în funcție de dimensiune
+                        if (index < profesoriList.size()) {
+                            Profesor profesor = profesoriList.get(index);
+                            profesoriList.set(index, new Profesor(profesor.getProfesorCurs(), profesorSeminar, profesor.getProfesorLaborator()));
+                        } else {
+                            profesoriList.add(new Profesor("", profesorSeminar, ""));
+                        }
+                        index++;
+                    }
+                } else if (step == 2) { // Profesori laborator
+                    int index = 0;
+                    while (resultSet.next() && index < profesoriList.size())
+                    {
+                        String profesorLaborator = resultSet.getString("Nume profesori laborator");
+                        if (index < profesoriList.size()) {
+                            Profesor profesor = profesoriList.get(index);
+                            profesoriList.set(index, new Profesor(profesor.getProfesorCurs(), profesor.getProfesorSeminar(), profesorLaborator));
+                        } else {
+                            profesoriList.add(new Profesor("", "", profesorLaborator));
+                        }
+                        index++;
+                    }
+                } else if (step == 3) { // Detalii curs
+                    if (resultSet.next()) {
+                        String numeCurs = resultSet.getString("nume_disciplina");
+                        String descriereCurs = resultSet.getString("descriere");
+                        String dataInceput = resultSet.getString("data_inceput");
+                        String dataFinal = resultSet.getString("data_sfarsit");
+                        String pondereCurs = resultSet.getString("pondere_curs");
+                        String pondereSeminar = resultSet.getString("pondere_seminar");
+                        String pondereLaborator = resultSet.getString("pondere_laborator");
+
+                        nume_curs.setText("Nume curs: " + numeCurs);
+                        descriere_curs.setText("\t" + descriereCurs);
+                        data_inceput_curs.setText("Data început: " + dataInceput);
+                        data_final_curs.setText("Data final: " + dataFinal);
+                        pondere_curs.setText("Pondere curs: " + pondereCurs);
+                        pondere_seminar.setText("Pondere seminar: " + pondereSeminar);
+                        pondere_laborator.setText("Pondere laborator: " + pondereLaborator);
+
+                        System.out.println(dataInceput);
+
+                    }
+
+                }
+                tabel_profesori.setItems(profesoriList);
+                step++;
+                hasResults = callableStatement.getMoreResults();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (callableStatement != null) callableStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @FXML
+    private void cautaCursButton(ActionEvent event)
+    {
+        System.out.println("Buton apasat curs");
+
+        String cautare = cauta_curs_nume.getText();
+        if(!cautare.isEmpty())
+        {
+            initialize_table();
+            cautaCurs(cautare);
+            System.out.println(cautare);
+        }
+        else
+        {
+            System.out.println("Nu a fost introdus un nume de curs!");
+        }
+
+    }
+
+    @FXML
+    private TableView note;
+
+    @FXML
+    private TableColumn<Note, String> nume_disciplina_nota;
+    @FXML
+    private TableColumn<Note, String> nota_curs;
+    @FXML
+    private TableColumn<Note, String> nota_seminar;
+    @FXML
+    private TableColumn<Note, String> nota_laborator;
+    @FXML
+    private TableColumn<Note, String> nota_finala;
+
+    public void initialize_tabelNote()
+    {
+
+        nume_disciplina_nota.setCellValueFactory(new PropertyValueFactory<Note, String>("Disciplina"));
+        nota_curs.setCellValueFactory(new PropertyValueFactory<Note, String>("notaCurs"));
+        nota_seminar.setCellValueFactory(new PropertyValueFactory<Note, String>("notaSeminar"));
+        nota_laborator.setCellValueFactory(new PropertyValueFactory<Note, String>("notaLaborator"));
+        nota_finala.setCellValueFactory(new PropertyValueFactory<Note, String>("notaFinala"));
+
+    }
+
+    public void loadNote(Integer studentId)
+    {
+        note.getItems().clear();
+        initialize_tabelNote();
+        note.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call afiseaza_catalog_student(?)");
+            preparedStatement.setString(1, String.valueOf(studentId));
+            rs = preparedStatement.executeQuery();
+
+
+            while (rs.next())
+            {
+                Map<String, Object> row = new HashMap<>();
+                String dis = rs.getString("Disciplina");
+
+                Integer notaCurs =  rs.getInt("Nota_Curs");
+                Integer notaSeminar = rs.getInt("Nota_Seminar");
+                Integer notaLaborator = rs.getInt("Nota_Laborator");
+                Integer notaFinala = rs.getInt("Nota_Finala");
+
+                //System.out.println(dis + " " + notaLaborator + " " + notaFinala);
+
+                note.getItems().add(new Note(dis, notaCurs.toString(), notaSeminar.toString(), notaLaborator.toString(), notaFinala.toString()));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    private void inscriereCursFunctie(Integer studentId, String curs)
+    {
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call inscriere_student_la_disciplina(?, ?)");
+            preparedStatement.setString(1, String.valueOf(id_student));
+            preparedStatement.setString(2, curs);
+            rs = preparedStatement.executeQuery();
+
+            loadNote(id_student);
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void inscriereCurs(ActionEvent event)
+    {
+        String curs = cauta_curs_nume.getText();
+        System.out.println("AFISARE:" + curs + id_student);
+
+        if (!curs.isEmpty())
+        {
+            inscriereCursFunctie(id_student, curs);
+
+            System.out.println("Inscriere reușită");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succes");
+            alert.setHeaderText(null); // Fără un antet
+            alert.setContentText("Inscrierea a fost realizată cu succes!");
+            alert.show();
+
+        }
+        else
+        {
+            System.out.println("Nu a fost cautat niciun curs");
+        }
+
+
+    }
+
+    @FXML
+    public TextField cauta_grupa;
+
+
+    @FXML
+    private TableView<GrupaStudiu> tabel_grupe_de_studiu;
+
+    @FXML
+    private TableColumn<GrupaStudiu, String> nume_grupa;
+
+    @FXML
+    private TableColumn<GrupaStudiu, String> nume_disciplina_grupa_studiu;
+
+
+    @FXML
+    public void initialize_tabelGrupeStudiu()
+    {
+
+        nume_grupa.setCellValueFactory(new PropertyValueFactory<GrupaStudiu, String>("GrupaStudiu"));
+        nume_disciplina_grupa_studiu.setCellValueFactory(new PropertyValueFactory<GrupaStudiu, String>("Disciplina"));
+
+    }
+
+    public void loadGrupeStudiu(int studentId) {
+
+        tabel_grupe_de_studiu.getItems().clear();
+        initialize_tabelGrupeStudiu();
+        tabel_grupe_de_studiu.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call vizualizare_grupe_student(?)");
+            preparedStatement.setString(1, String.valueOf(studentId));
+            rs = preparedStatement.executeQuery();
+
+
+            while (rs.next())
+            {
+                Map<String, Object> row = new HashMap<>();
+                String gr = rs.getString("nume_grupa");
+                String dis =  rs.getString("nume_disciplina");
+
+                //System.out.println(dis + " " + gr);
+
+                tabel_grupe_de_studiu.getItems().add(new GrupaStudiu(dis, gr));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void inscriereGrupaStudiu(ActionEvent event)
+    {
+        System.out.println("buton inscriere grupa apasat");
+
+        int studentId = id_student;
+        String inscrie = cauta_curs_nume.getText();
+
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call inscriere_student_grup_studiu(?, ?)");
+            preparedStatement.setString(1, String.valueOf(studentId));
+            preparedStatement.setString(2, inscrie);
+            rs = preparedStatement.executeQuery();
+
+            loadGrupeStudiu(studentId);
+
+            System.out.println("Inscriere reușită");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succes");
+            alert.setHeaderText(null); // Fără un antet
+            alert.setContentText("Inscrierea a fost realizată cu succes!");
+            alert.show();
+
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+
+            System.out.println("Inscrierea nu a reusit");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("! Inscrierea nu a reusit !\nverifica daca ai introdus corect numele disciplinei sau daca esti inscris la disciplina respectiva ca sa poti face parte din grupa de studiu");
+            alert.show();
+
+        }
+        finally
+        {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void veziMembriiGrupaStudiu(ActionEvent event) throws IOException {
+        System.out.println("buton vezi membrii apasat");
+
+        int studentId = this.id_student;
+        String cauta = cauta_grupa.getText();
+        System.out.println("DISCIPLINA: "+cauta);
+
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call vizualizare_membri_grupa(?, ?)");
+            preparedStatement.setString(1, String.valueOf(studentId));
+            preparedStatement.setString(2, cauta);
+            rs = preparedStatement.executeQuery();
+
+            // Deschidem fereastra cu tabelul
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("vizualizareMembrii.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(loader.load()));
+
+            MembriiGrupaController controller = loader.getController();
+            controller.loadMembrii(studentId, cauta);
+
+            stage.show();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("Nu poti vedea membrii");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare");
+            alert.setHeaderText(null);
+            alert.setContentText("Nu poti vizualiza membrii acestei grupe pentru ca nu faci parte din ea");
+            alert.show();
+        }
+        finally
+        {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void iesiGrup(ActionEvent event)
+    {
+        String iesi = cauta_grupa.getText();
+        int studentId = id_student;
+
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call parasire_student_grup_studiu(?, ?)");
+            preparedStatement.setString(1, String.valueOf(studentId));
+            preparedStatement.setString(2, iesi);
+            rs = preparedStatement.executeQuery();
+
+            System.out.println("Ai parasit grupa de studiu");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succes");
+            alert.setHeaderText(null); // Fără un antet
+            alert.setContentText("Ai iesit din grupa de studiu aleasa cu succes");
+            alert.show();
+
+            loadGrupeStudiu(studentId);
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            System.out.println("Nu poti iesi din grupa de studiu");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare");
+            alert.setHeaderText("Operatie esuata");
+            alert.setContentText("Nu ai reusit sa iesi din grupa de studiu aleasa, probabil nu esti inscris");
+            alert.show();
+        }
+        finally
+        {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void deschideChat(ActionEvent event) throws IOException {
+        System.out.println("butonul de afisare mesaje");
+
+        // Deschidem fereastra cu tabelul
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mesaje.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+
+        MesajeController controller = loader.getController();
+        controller.loadMesages(id_student, cauta_grupa.getText());
+
+        stage.show();
+    }
+
 }
