@@ -1,19 +1,15 @@
 package org.example.cod_interfata;
 
-import com.sun.source.tree.TryTree;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
 
@@ -37,6 +33,47 @@ public class BDconection {
                 controller.setUserInfo(id_user, nume, prenume, anStudiu, grupa, email, telefon, telefonContact, adresa, cnp, iban);
                 controller.loadNote(id_user);
                 controller.loadGrupeStudiu(id_user);
+                controller.loadTabelActivitatiStudiu(id_user);
+
+                //root = FXMLLoader.load(BDconection.class.getResource(fxmlFile));
+
+            }
+            catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            try {
+                FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
+                root = loader.load(); // Inițializează root
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Platforma Studii");
+
+        stage.setScene(new Scene(root, w, h));
+
+        stage.show();
+
+    }
+
+    public static void changeSceneProfesor(ActionEvent event, String fxmlFile, Integer id_user, String nume, String prenume, String departament, String ore, String email, String telefon, String telefonContact, String adresa, String cnp, String iban, double w, double h) {
+
+        Parent root = null;
+
+        if(id_user != null)
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
+                root = loader.load();
+                ProfilProfesorController controller = loader.getController();
+
+                controller.setUserInfo(id_user, nume, prenume, departament, ore, email, telefon, telefonContact, adresa, cnp, iban);
 
                 //root = FXMLLoader.load(BDconection.class.getResource(fxmlFile));
 
@@ -100,6 +137,84 @@ public class BDconection {
 
         stage.show();
 
+    }
+
+    public static void changeSceneAdmin(ActionEvent event, String fxmlFile, Integer id, String nume,String prenume,String email,String telefon,String nrContract,String adresa,String cnp,String iban,double w,double h)
+    {
+        Parent root = null;
+
+        if(id != null)
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
+                root = loader.load();
+                AdminController controller = loader.getController();
+
+                controller.setUserInfo(id, nume, prenume, email, telefon, nrContract, adresa, cnp, iban);
+
+                //root = FXMLLoader.load(BDconection.class.getResource(fxmlFile));
+
+            }
+            catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            try {
+                FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
+                root = loader.load(); // Inițializează root
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Platforma Studii");
+
+        stage.setScene(new Scene(root, w, h));
+
+        stage.show();
+    }
+
+    public static void changeSceneSuperAdmin(ActionEvent event, String fxmlFile, Integer id, String nume,String prenume,String email,String telefon,String nrContract,String adresa,String cnp,String iban,double w,double h)
+    {
+        Parent root = null;
+
+        if(id != null)
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
+                root = loader.load();
+                SuperAdminController controller = loader.getController();
+
+                controller.setUserInfo(id, nume, prenume, email, telefon, nrContract, adresa, cnp, iban);
+
+                //root = FXMLLoader.load(BDconection.class.getResource(fxmlFile));
+
+            }
+            catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            try {
+                FXMLLoader loader = new FXMLLoader(BDconection.class.getResource(fxmlFile));
+                root = loader.load(); // Inițializează root
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Platforma Studii");
+
+        stage.setScene(new Scene(root, w, h));
+
+        stage.show();
     }
 
 
@@ -168,12 +283,35 @@ public class BDconection {
 
                             changeSceneStudent(event, "profil.fxml", id, nume, prenume, anStudiu, grupa, email, telefon, telefonContact, adresa, cnp, iban, width, height);
                         }
-                        else
+                        else if(rol.equals("profesor"))
                         {
-                            System.out.println("Nu esti student");
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setContentText("<3");
-                            alert.show();
+                            preparedStatement = conection.prepareStatement("select departament, ore_min, ore_max from profesori where profesor_id = ?");
+
+                            preparedStatement.setInt(1, id);
+                            date_student = preparedStatement.executeQuery();
+
+                            String departament = null;
+                            Integer oreMin = 0;
+                            Integer oreMax = 0;
+
+                            while(date_student.next())
+                            {
+                                departament = date_student.getString("departament");
+                                oreMin = date_student.getInt("ore_min");
+                                oreMax = date_student.getInt("ore_max");
+                            }
+
+                            String ore = String.valueOf("Ore minime: "+oreMin + " \t\t Ore maxime: "+ oreMax);
+
+                            changeSceneProfesor(event, "profilProfesor.fxml", id, nume, prenume, departament, ore, email, telefon, telefonContact, adresa, cnp, iban, width, height);
+                        }
+                        else if(rol.equals("administrator"))
+                        {
+                            changeSceneAdmin(event, "admin.fxml", id, nume, prenume, email, telefon, telefonContact, adresa, cnp, iban, width, height);
+                        }
+                        else if(rol.equals("super-administrator"))
+                        {
+                            changeSceneSuperAdmin(event, "superAdmin.fxml", id, nume, prenume, email, telefon, telefonContact, adresa, cnp, iban, width, height);
                         }
 
 

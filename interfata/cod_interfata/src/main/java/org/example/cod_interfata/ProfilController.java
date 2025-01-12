@@ -1,6 +1,5 @@
 package org.example.cod_interfata;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -28,6 +26,8 @@ import java.util.ResourceBundle;
 public class ProfilController implements Initializable {
 
     private static int id_student;
+    @FXML
+    private TextArea activitate_bonus;
 
     @FXML
     private Button buton_logout;
@@ -79,6 +79,7 @@ public class ProfilController implements Initializable {
         this.iban.setText("IBAN: " + iban);
 
         this.id_student = id;
+        loadBonus(id);
     }
 
     @FXML
@@ -636,7 +637,7 @@ public class ProfilController implements Initializable {
         System.out.println("buton inscriere grupa apasat");
 
         int studentId = id_student;
-        String inscrie = cauta_curs_nume.getText();
+        String inscrie = cauta_grupa.getText();
 
         Connection conection = null;
         PreparedStatement preparedStatement = null;
@@ -818,5 +819,226 @@ public class ProfilController implements Initializable {
 
         stage.show();
     }
+
+    public void loadBonus(int studentId)
+    {
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call sugereaza_activitate_grup(?)");
+            preparedStatement.setString(1, String.valueOf(studentId));
+            rs = preparedStatement.executeQuery();
+
+            String sugestieText="bonus";
+
+            while (rs.next())
+            {
+
+                sugestieText = rs.getString("sugestie");
+
+            }
+
+            activitate_bonus.setText(sugestieText);
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private TextField inscriere_activitate_grup;
+
+    @FXML
+    private TableView<ActivitateStudiu> tabel_activitati_grup;
+
+    @FXML
+    private TableColumn<ActivitateStudiu, String> activitate_grup;
+
+    @FXML
+    private TableColumn<ActivitateStudiu, String> descriere_grup;
+
+    @FXML
+    private TableColumn<ActivitateStudiu, String> data_grup;
+    @FXML
+    private TableColumn<ActivitateStudiu, String> ora_grup;
+
+
+    @FXML
+    public void initializareTabelActivitatiStudiu()
+    {
+
+        activitate_grup.setCellValueFactory(new PropertyValueFactory<ActivitateStudiu, String>("Grupa"));
+        descriere_grup.setCellValueFactory(new PropertyValueFactory<ActivitateStudiu, String>("Descrierea"));
+        data_grup.setCellValueFactory(new PropertyValueFactory<ActivitateStudiu, String>("Data"));
+        ora_grup.setCellValueFactory(new PropertyValueFactory<ActivitateStudiu, String>("Ora"));
+
+        tabel_activitati_grup.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null)
+            {
+                inscriere_activitate_grup.setText(String.valueOf(newSelection.getDescrierea()));
+
+             }
+        });
+
+    }
+
+    public void loadTabelActivitatiStudiu(int studentId) {
+
+        tabel_activitati_grup.getItems().clear();
+        initializareTabelActivitatiStudiu();
+        tabel_activitati_grup.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call afiseaza_activitati_studiu(?)");
+            preparedStatement.setString(1, String.valueOf(studentId));
+            rs = preparedStatement.executeQuery();
+
+
+            while (rs.next())
+            {
+                Map<String, Object> row = new HashMap<>();
+                String numeGrupa = rs.getString("nume_grupa");
+                String descriere =  rs.getString("descriere");
+                String dataActivitate = rs.getString("data_activitate");
+                String oraActivitate = rs.getString("ora");
+
+                System.out.println(numeGrupa + " " + oraActivitate);
+
+                tabel_activitati_grup.getItems().add(new ActivitateStudiu(numeGrupa, descriere, dataActivitate, oraActivitate));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void confirmareInscriereActivitate(ActionEvent event)
+    {
+
+        System.out.println("buton inscriere activitate apasat");
+
+        String activitateStudiu = inscriere_activitate_grup.getText();
+        String studentId = String.valueOf(id_student);
+        String descriere = inscriere_activitate_grup.getText();
+
+        if(!activitateStudiu.isEmpty())
+        {
+            Connection conection = null;
+            PreparedStatement preparedStatement = null;
+            ResultSet rs = null;
+
+            try
+            {
+
+                String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+                conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+                preparedStatement = conection.prepareStatement("call inscriere_activitate_studiu(?, ?)");
+                preparedStatement.setString(1, studentId);
+                preparedStatement.setString(2, descriere);
+                rs = preparedStatement.executeQuery();
+
+                System.out.println("Inscriere reușită");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Succes");
+                alert.setHeaderText(null); // Fără un antet
+                alert.setContentText("Inscrierea a fost realizată cu succes!");
+                alert.show();
+
+            }
+            catch (SQLException e)
+            {
+
+                System.out.println("Inscrierea nu a reusit");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Eroare");
+                alert.setHeaderText(null);
+                alert.setContentText("Inscrierea nu a putut fi finalizata, verifica daca datele introduse sunt corecte!");
+                alert.show();
+                e.printStackTrace();
+            }
+            finally
+            {
+                try {
+                    if (rs != null) rs.close();
+                    if (preparedStatement != null) preparedStatement.close();
+                    if (conection != null) conection.close();
+                }
+                catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+    @FXML
+    private void adaugaActivitate(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("adaugaActivitateStudiu.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+
+        AdaugaActivitateStudiuController controller = loader.getController();
+        controller.setId_student(id_student);
+
+        stage.show();
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 }

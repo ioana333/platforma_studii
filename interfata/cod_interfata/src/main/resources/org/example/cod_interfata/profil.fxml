@@ -176,10 +176,10 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
                <children>
-                  <TableView fx:id="tabel_grupe_de_studiu" layoutX="30.0" layoutY="72.0" onSort="#setTabelgrupe" prefHeight="183.0" prefWidth="690.0">
+                  <TableView fx:id="tabel_grupe_de_studiu" layoutX="30.0" layoutY="72.0" onSort="#setTabelgrupe" prefHeight="183.0" prefWidth="420.0">
                     <columns>
-                      <TableColumn fx:id="nume_grupa" prefWidth="347.0" text="GRUPA DE STUDIU" />
-                        <TableColumn fx:id="nume_disciplina_grupa_studiu" prefWidth="342.0" text="DISCIPLINA" />
+                      <TableColumn fx:id="nume_grupa" prefWidth="200.0" text="GRUPA DE STUDIU" />
+                        <TableColumn fx:id="nume_disciplina_grupa_studiu" prefWidth="218.0" text="DISCIPLINA" />
                     </columns>
                      <effect>
                         <DropShadow height="82.55" radius="45.1725" width="100.14">
@@ -257,6 +257,18 @@
                      </effect>
                   </Button>
                   <Label layoutX="35.0" layoutY="358.0" text="Introdu numele unui grup in casuta de mai sus si deschide chat-ul" />
+                  <TableView layoutX="505.0" layoutY="24.0" prefHeight="242.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="199.0" text="Sugestii" />
+                    </columns>
+                     <effect>
+                        <DropShadow height="44.45" radius="23.19" width="50.31">
+                           <color>
+                              <Color red="0.7137255072593689" green="0.8078431487083435" blue="1.0" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </TableView>
                </children></AnchorPane>
          </content>
       </Tab>
@@ -264,22 +276,36 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
                <children>
-                  <TableView layoutX="86.0" layoutY="103.0" prefHeight="260.0" prefWidth="570.0">
-                    <columns>
-                      <TableColumn prefWidth="433.0" text="Activitate" />
-                        <TableColumn prefWidth="136.0" text="Inscrie-te" />
-                    </columns>
-                  </TableView>
-                  <Button layoutX="237.0" layoutY="25.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA O ACTIVITATE">
+                  <Button layoutX="237.0" layoutY="25.0" mnemonicParsing="false" onAction="#adaugaActivitate" style="-fx-background-color: #b6ceff;" text="ADAUGA O ACTIVITATE">
                      <font>
                         <Font name="Arial Black" size="18.0" />
                      </font>
                   </Button>
-                  <Label layoutX="276.0" layoutY="74.0" text="SAU INSCRIE-TE...">
+                  <Label layoutX="277.0" layoutY="74.0" text="SAU INSCRIE-TE...">
                      <font>
                         <Font name="Arial Black" size="18.0" />
                      </font>
                   </Label>
+                  <TableView fx:id="tabel_activitati_grup" layoutX="57.0" layoutY="106.0" prefHeight="147.0" prefWidth="641.0" style="-fx-background-color: #ffffff;">
+                    <columns>
+                      <TableColumn fx:id="activitate_grup" prefWidth="165.0" text="Grupa" />
+                        <TableColumn fx:id="descriere_grup" prefWidth="247.0" text="Descriere" />
+                        <TableColumn fx:id="data_grup" prefWidth="126.0" text="Data" />
+                        <TableColumn fx:id="ora_grup" prefWidth="102.0" text="Ora" />
+                    </columns>
+                  </TableView>
+                  <Button layoutX="461.0" layoutY="259.0" mnemonicParsing="false" onAction="#confirmareInscriereActivitate" style="-fx-background-color: #b6ceff;" text="CONFIRMARE INSCRIERE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="inscriere_activitate_grup" layoutX="106.0" layoutY="260.0" prefHeight="25.0" prefWidth="315.0" promptText="Alege o activitate" />
+                  <Label layoutX="198.0" layoutY="299.0" text="Orarul tau e liber pentru aceasta activitate, poate te-ar interesa">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="activitate_bonus" layoutX="199.0" layoutY="318.0" prefHeight="65.0" prefWidth="359.0" wrapText="true" />
                </children>
             </AnchorPane>
          </content>

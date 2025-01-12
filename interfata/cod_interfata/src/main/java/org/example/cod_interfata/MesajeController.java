@@ -2,12 +2,12 @@ package org.example.cod_interfata;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.sql.*;
 import java.util.Date;
 import java.util.HashMap;
@@ -67,8 +67,9 @@ public class MesajeController
                 String student = rs.getString("student_nume_complet");
                 String continut =  rs.getString("continut");
                 Date data = rs.getDate("data_trimitere");
+                Time ora  = rs.getTime("ora_trimitere");
 
-                String afisare = String.format(student + "\n\t" + continut + "\n\t\t " + data);
+                String afisare = String.format(student + "\n\t" + continut + "\n\t\t\t\t\t\t " + ora + "  " + data);
 
                 System.out.println(afisare);
 

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="357.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.StabilireActivitateController">
+   <children>
+      <Label layoutX="41.0" layoutY="36.0" prefHeight="27.0" prefWidth="138.0" text="Nume disciplina">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nume_disciplina_activitate" layoutX="41.0" layoutY="63.0" />
+      <Label layoutX="41.0" layoutY="95.0" prefHeight="27.0" prefWidth="138.0" text="Tip activitate">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="tip_activitate" editable="true" layoutX="41.0" layoutY="122.0" prefWidth="150.0">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="curs" />
+                  <String fx:value="seminar" />
+                  <String fx:value="laborator" />
+              </FXCollections>
+          </items>
+       </ComboBox>
+      <Label layoutX="26.0" layoutY="158.0" prefHeight="27.0" prefWidth="375.0" text="Alege ziua saptamanii in care vrei sa se desfacaoare activitatea">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="ziua" editable="true" layoutX="41.0" layoutY="192.0" prefWidth="150.0">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Luni" />
+                  <String fx:value="Marti" />
+                  <String fx:value="Miercuri" />
+                  <String fx:value="Joi" />
+                  <String fx:value="Vineri" />
+              </FXCollections>
+          </items>
+      </ComboBox>
+      <Label layoutX="47.0" layoutY="226.0" prefHeight="27.0" prefWidth="138.0" text="De la ce ora?">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="ora" layoutX="41.0" layoutY="253.0" promptText="hh:mm:ss" />
+      <Button layoutX="142.0" layoutY="295.0" mnemonicParsing="false" onAction="#insereaza" style="-fx-background-color: #b6ceff;" text="Stabileste activitatea" />
+   </children>
+</AnchorPane>

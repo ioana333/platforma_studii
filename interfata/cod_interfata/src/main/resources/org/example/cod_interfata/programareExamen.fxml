@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="414.0" prefWidth="408.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.ProgramareExamenController">
+    <children>
+        <Label layoutX="131.0" layoutY="40.0" prefHeight="27.0" prefWidth="138.0" text="Nume disciplina">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <TextField fx:id="nume_disciplina_examen" layoutX="124.0" layoutY="67.0" />
+        <Label layoutX="135.0" layoutY="99.0" prefHeight="27.0" prefWidth="138.0" text="Tip activitate">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="tip_activitate" editable="true" layoutX="124.0" layoutY="126.0" prefWidth="150.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="examen" />
+                    <String fx:value="colocviu" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Label layoutX="145.0" layoutY="226.0" prefHeight="27.0" prefWidth="138.0" text="De la ce ora?">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <TextField fx:id="ora" layoutX="124.0" layoutY="253.0" promptText="hh:mm:ss" />
+        <Button layoutX="143.0" layoutY="367.0" mnemonicParsing="false" onAction="#insereaza" style="-fx-background-color: #b6ceff;" text="Stabileste evaluarea" />
+      <Label layoutX="171.0" layoutY="161.0" prefHeight="27.0" prefWidth="138.0" text="Cand?">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="data_examen" layoutX="124.0" layoutY="188.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="126.0" layoutY="294.0" prefHeight="27.0" prefWidth="177.0" text="Cat timp va dura?">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="durata" layoutX="125.0" layoutY="321.0" promptText="hh:mm:ss" />
+    </children>
+</AnchorPane>

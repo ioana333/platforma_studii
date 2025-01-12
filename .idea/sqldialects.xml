@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/baza_de_date" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/baza_de_date/var_6 (3).sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/baza_de_date/var_7.sql" dialect="MySQL" />
-<<<<<<< Updated upstream
-    <file url="file://$PROJECT_DIR$/baza_de_date/var_9.sql" dialect="MySQL" />
-=======
->>>>>>> Stashed changes
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b2edc42a-0ff0-436e-a050-9583995354a9/console_19.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/baza_de_date/var11-dump.sql" dialect="MySQL" />
   </component>
 </project>
