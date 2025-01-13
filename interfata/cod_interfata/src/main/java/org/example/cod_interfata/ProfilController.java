@@ -582,6 +582,12 @@ public class ProfilController implements Initializable {
         nume_grupa.setCellValueFactory(new PropertyValueFactory<GrupaStudiu, String>("GrupaStudiu"));
         nume_disciplina_grupa_studiu.setCellValueFactory(new PropertyValueFactory<GrupaStudiu, String>("Disciplina"));
 
+        tabel_grupe_de_studiu.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                cauta_grupa.setText(String.valueOf(newSelection.getDisciplina()));
+                 }
+        });
+
     }
 
     public void loadGrupeStudiu(int studentId) {
