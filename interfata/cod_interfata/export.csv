@@ -1,15 +1,9 @@
 id_student,Nume,Prenume, Nota Curs, Nota Seminar, Nota Laborator, Nota Finala
-36,Popescu,Ion, 0, 0, 0, 0
-37,Popa,Andreea, 3, 0, 0, 2
-38,Marin,Ioana, 0, 0, 0, 0
+36,Popescu,Ion, 10, 5, 0, 9
+37,Popa,Andreea, 7, 8, 0, 7
 39,Nistor,Gabriela, 0, 0, 0, 0
-40,Popescu,Lavinia, 0, 0, 0, 0
-60,Nedelcu,Ana, 0, 0, 0, 0
-61,Popovici,Vlad, 0, 0, 0, 0
-62,Cristea,Maria, 0, 0, 0, 0
 63,Barbu,Daniel, 0, 0, 0, 0
 64,Stoica,Diana, 0, 0, 0, 0
-65,Iacob,Marius, 0, 0, 0, 0
 66,Radulescu,Oana, 0, 0, 0, 0
 67,Voicu,Andrei, 0, 0, 0, 0
 68,Diaconu,Laura, 0, 0, 0, 0
