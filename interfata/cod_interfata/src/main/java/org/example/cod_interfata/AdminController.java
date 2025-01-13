@@ -503,6 +503,9 @@ public class AdminController implements Initializable
 
     }
 
+    @FXML
+    private TextField parola_modificata;
+
 
     @FXML
     private void modificaUtilizator()
@@ -516,6 +519,8 @@ public class AdminController implements Initializable
         String emailUtilizator = email_modificat.getText();
         String ibanUtilizator = iban_modificat.getText();
         String contractUtilizator = contract_modificat.getText();
+        String rolUtilizator = rol_utilizator.getValue().toString();
+        String parolaNoua = parola_modificata.getText();
 
         if(!idUtilizator.isEmpty() && !numeUtilizator.isEmpty() && !prenumeUtilizator.isEmpty())
         {
@@ -530,26 +535,38 @@ public class AdminController implements Initializable
 
                 conection = DriverManager.getConnection(url, "root", "Padurarul31+");
 
-                preparedStatement = conection.prepareStatement("call vizualizare_activitati_student(?, ?)");
-                preparedStatement.setString(1, String.valueOf(studentId));
-                preparedStatement.setString(2, String.valueOf(data_activitati.getValue()));
+                preparedStatement = conection.prepareStatement("call actualizare_utilizator(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                preparedStatement.setString(1, idUtilizator);
+                preparedStatement.setString(2, cnpUtilizator);
+                preparedStatement.setString(3, prenumeUtilizator);
+                preparedStatement.setString(4, numeUtilizator);
+                preparedStatement.setString(5, adresaUtilizator);
+                preparedStatement.setString(6, telefonUtilizator);
+                preparedStatement.setString(7, emailUtilizator);
+                preparedStatement.setString(8, ibanUtilizator);
+                preparedStatement.setString(9, contractUtilizator);
+                preparedStatement.setString(10, rolUtilizator);
+                preparedStatement.setString(11, parolaNoua);
                 rs = preparedStatement.executeQuery();
 
+                System.out.println("Modificare reușită");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Succes");
+                alert.setHeaderText(null); // Fără un antet
+                alert.setContentText("Modificarea a fost realizată cu succes!");
+                alert.show();
 
-                while (rs.next())
-                {
-
-                    String dis = rs.getString("NumeDisciplina");
-                    String act =  rs.getString("TipActivitate");
-                    String ora = rs.getString("OraInceput");
-
-                    System.out.println(dis + " " + act + " " + ora);
-
-                }
+                loadUtilizatori();
 
             }
             catch (SQLException e)
             {
+                System.out.println("Nu poti vedea membrii");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Eroare");
+                alert.setHeaderText(null);
+                alert.setContentText("Nu pa reusit modificarea. Verifica daca ai introdus toate datele corespunzator!");
+                alert.show();
                 e.printStackTrace();
             }
             finally
@@ -581,6 +598,112 @@ public class AdminController implements Initializable
     }
 
 
+    @FXML
+    private void stergeUtilizator(ActionEvent event)
+    {
+        String cnpUtilizator = cnp_modificat.getText();
+
+        if(!cnpUtilizator.isEmpty())
+        {
+            Connection conection = null;
+            PreparedStatement preparedStatement = null;
+            ResultSet rs = null;
+
+            try
+            {
+
+                String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+                conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+                preparedStatement = conection.prepareStatement("call  sterge_utilizator_cu_cnp(?)");
+                preparedStatement.setString(1, cnpUtilizator);
+                rs = preparedStatement.executeQuery();
+
+                System.out.println("Stergere reușită");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Succes");
+                alert.setHeaderText(null); // Fără un antet
+                alert.setContentText("Utilizatorul a fost sters cu succes!");
+                alert.show();
+
+                loadUtilizatori();
+
+            }
+            catch (SQLException e)
+            {
+                System.out.println("Nu sters");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Eroare");
+                alert.setHeaderText(null);
+                alert.setContentText("Nu s-a putu finaliza stergerea! Verifica datele introduse sau daca utilizatorul exista!");
+                alert.show();
+                e.printStackTrace();
+            }
+            finally
+            {
+                try {
+                    if (rs != null) rs.close();
+                    if (preparedStatement != null) preparedStatement.close();
+                    if (conection != null) conection.close();
+                }
+                catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Nu poti sterge");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Eroare");
+            alert.setHeaderText(null);
+            alert.setContentText("Nu ai introdus un CNP");
+            alert.show();
+        }
+
+    }
+
+    @FXML
+    private void adaugaProfesor(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("adaugaProfesor.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+
+        AdaugaProfesorController controller = loader.getController();
+
+        stage.show();
+    }
+
+    @FXML
+    private void adaugaStudent(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("adaugaStudent.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+
+        AdaugaStudentController controller = loader.getController();
+
+        stage.show();
+
+    }
+
+    @FXML
+    private void asignareActivitate(ActionEvent event) throws IOException
+    {
+        String profId = id_modificat.getText();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("asignareDisciplina.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+
+        AsignareDisciplinaController controller = loader.getController();
+        controller.setProfId(profId);
+
+        stage.show();
+
+    }
 
 
 

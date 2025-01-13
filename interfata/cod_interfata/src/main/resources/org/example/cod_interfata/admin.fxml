@@ -125,34 +125,35 @@
                         </Label>
                         <TextField fx:id="adresa_modificat" layoutX="520.0" layoutY="341.0" promptText="ADRESA" />
                         <TextField fx:id="tel_modificat" layoutX="684.0" layoutY="341.0" promptText="TELEFON" />
-                        <TextField fx:id="email_modificat" layoutX="119.0" layoutY="396.0" promptText="EMAIL" />
-                        <TextField fx:id="iban_modificat" layoutX="286.0" layoutY="396.0" prefHeight="25.0" prefWidth="266.0" promptText="IBAN" />
-                        <TextField fx:id="contract_modificat" layoutX="564.0" layoutY="396.0" promptText="NR CONTRACT" />
-                        <Button layoutX="94.0" layoutY="436.0" onAction="#modificaUtilizator" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="MODIFICA">
+                        <TextField fx:id="email_modificat" layoutX="54.0" layoutY="396.0" prefHeight="25.0" prefWidth="189.0" promptText="EMAIL" />
+                        <TextField fx:id="iban_modificat" layoutX="255.0" layoutY="396.0" prefHeight="25.0" prefWidth="221.0" promptText="IBAN" />
+                        <TextField fx:id="contract_modificat" layoutX="486.0" layoutY="396.0" promptText="NR CONTRACT" />
+                        <Button layoutX="51.0" layoutY="440.0" mnemonicParsing="false" onAction="#modificaUtilizator" style="-fx-background-color: #b6ceff;" text="MODIFICA">
                            <font>
                               <Font name="Arial Black" size="13.0" />
                            </font>
                         </Button>
-                        <Button layoutX="200.0" layoutY="437.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="STERGE">
+                        <Button layoutX="157.0" layoutY="441.0" onAction="#stergeUtilizator" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="STERGE">
                            <font>
                               <Font name="Arial Black" size="13.0" />
                            </font>
                         </Button>
-                        <Button layoutX="293.0" layoutY="436.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA PROFESOR">
+                        <Button layoutX="250.0" onAction="#adaugaProfesor" layoutY="440.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA PROFESOR">
                            <font>
                               <Font name="Arial Black" size="13.0" />
                            </font>
                         </Button>
-                        <Button layoutX="471.0" layoutY="436.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA STUDENT">
+                        <Button layoutX="428.0" layoutY="440.0" onAction="#adaugaStudent" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA STUDENT">
                            <font>
                               <Font name="Arial Black" size="13.0" />
                            </font>
                         </Button>
-                        <Button layoutX="642.0" layoutY="436.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ASIGNARE ACTIVITATE">
+                        <Button layoutX="599.0" layoutY="440.0" onAction="#asignareActivitate" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ASIGNARE ACTIVITATE">
                            <font>
                               <Font name="Arial Black" size="13.0" />
                            </font>
                         </Button>
+                        <TextField fx:id="parola_modificata" layoutX="642.0" layoutY="396.0" promptText="PAROLA" />
                      </children></AnchorPane>
                     </content>
                 </Tab>

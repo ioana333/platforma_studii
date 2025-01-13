@@ -257,9 +257,9 @@
                      </effect>
                   </Button>
                   <Label layoutX="35.0" layoutY="358.0" text="Introdu numele unui grup in casuta de mai sus si deschide chat-ul" />
-                  <TableView layoutX="505.0" layoutY="24.0" prefHeight="242.0" prefWidth="200.0">
+                  <TableView fx:id="tabel_sugestii" layoutX="505.0" layoutY="24.0" prefHeight="242.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="199.0" text="Sugestii" />
+                      <TableColumn fx:id="coloana_sugestii" prefWidth="199.0" text="Sugestii" />
                     </columns>
                      <effect>
                         <DropShadow height="44.45" radius="23.19" width="50.31">

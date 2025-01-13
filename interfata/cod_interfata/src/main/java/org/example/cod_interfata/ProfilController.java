@@ -1032,6 +1032,68 @@ public class ProfilController implements Initializable {
     }
 
 
+    @FXML
+    private TableView<Mesaj> tabel_sugestii;
+
+    @FXML
+    private TableColumn<Mesaj, String> coloana_sugestii;
+
+    @FXML
+    public void initializareTabelSugestii()
+    {
+
+        coloana_sugestii.setCellValueFactory(new PropertyValueFactory<Mesaj, String>("Continut"));
+
+    }
+
+    public void loadSugestii(int studentId) {
+
+        tabel_sugestii.getItems().clear();
+        initializareTabelSugestii();
+        tabel_sugestii.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        Connection conection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try
+        {
+
+            String url = "jdbc:mysql://localhost:3306/platforma_studii";
+
+            conection = DriverManager.getConnection(url, "root", "Padurarul31+");
+
+            preparedStatement = conection.prepareStatement("call sugestii_de_participanti(?)");
+            preparedStatement.setString(1, String.valueOf(studentId));
+            rs = preparedStatement.executeQuery();
+
+
+            while (rs.next())
+            {
+                Map<String, Object> row = new HashMap<>();
+                String grup = rs.getString("Nume Grup de Studiu");
+                String numeSugestie =  rs.getString("Nume");
+                String prenumeSugestie = rs.getString("Prenume");
+
+                String mesaj = numeSugestie + " " + prenumeSugestie + " este membra in \n" + grup + "\n HAI SI TU!";
+
+                tabel_sugestii.getItems().add(new Mesaj(mesaj));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (conection != null) conection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 
 

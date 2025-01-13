@@ -34,6 +34,7 @@ public class BDconection {
                 controller.loadNote(id_user);
                 controller.loadGrupeStudiu(id_user);
                 controller.loadTabelActivitatiStudiu(id_user);
+                controller.loadSugestii(id_user);
 
                 //root = FXMLLoader.load(BDconection.class.getResource(fxmlFile));
 
