@@ -224,6 +224,7 @@ public class BDconection {
         PreparedStatement preparedStatement = null;
         ResultSet rezultat = null;
         ResultSet date_student = null;
+        ResultSet date_adresa = null;
 
         try
         {
@@ -257,6 +258,23 @@ public class BDconection {
                     String adresa = rezultat.getString("adresa_id");
                     String cnp = rezultat.getString("CNP");
                     String iban = rezultat.getString("iban");
+
+                    preparedStatement = conection.prepareStatement("select * from adrese where adresa_id = ?");
+                    preparedStatement.setString(1, adresa);
+                    date_adresa = preparedStatement.executeQuery();
+
+                    String mesaj = "";
+                    while (date_adresa.next())
+                    {
+                        String tara = date_adresa.getString("tara");
+                        String judet = date_adresa.getString("judet");
+                        String loc = date_adresa.getString("localitate");
+                        String str = date_adresa.getString("strada");
+                        String nr = date_adresa.getString("numar");
+
+                        mesaj = tara + ", jud. " + judet + ", loc. " + loc + "\nstr." + str + ", nr. " + nr;
+                    }
+                    adresa = mesaj;
 
                     if(password.equals(parola))
                     {
@@ -307,11 +325,11 @@ public class BDconection {
                         }
                         else if(rol.equals("administrator"))
                         {
-                            changeSceneAdmin(event, "admin.fxml", id, nume, prenume, email, telefon, telefonContact, adresa, cnp, iban, width, height);
+                            changeSceneAdmin(event, "admin.fxml", id, nume, prenume, email, telefon, telefonContact, adresa, cnp, iban, 900, 550);
                         }
                         else if(rol.equals("super-administrator"))
                         {
-                            changeSceneSuperAdmin(event, "superAdmin.fxml", id, nume, prenume, email, telefon, telefonContact, adresa, cnp, iban, width, height);
+                            changeSceneSuperAdmin(event, "superAdmin.fxml", id, nume, prenume, email, telefon, telefonContact, adresa, cnp, iban, 900, 550);
                         }
 
 
