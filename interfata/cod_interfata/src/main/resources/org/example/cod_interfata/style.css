@@ -32,3 +32,8 @@
 .tab:hover {
     -fx-background-color: #d3d3d3; /* Fundal când tabul este hover-uit */
 }
+
+.split-pane-divider
+{
+    -fx-opacity: 0;
+}

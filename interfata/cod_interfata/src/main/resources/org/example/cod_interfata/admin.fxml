@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cod_interfata.AdminController">
+
+
+
+    <children>
+        <TabPane prefHeight="550.0" prefWidth="900.0" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="PROFIL">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@style.css">
+                            <children>
+                                <ImageView fitHeight="547.0" fitWidth="960.0" layoutX="156.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@profilFundal.png" />
+                                    </image>
+                                </ImageView>
+                                <Label fx:id="nume_prenume" layoutX="29.0" layoutY="15.0" text="Nume Prenume">
+                                    <font>
+                                        <Font name="Arial Black" size="32.0" />
+                                    </font>
+                                </Label>
+                                <Button fx:id="buton_logout" layoutX="817.0" layoutY="5.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="71.0" style="-fx-background-color: #b6ceff;" text="LogOut">
+                                    <font>
+                                        <Font name="Arial Black" size="12.0" />
+                                    </font>
+                                </Button>
+                                <Label fx:id="email_afisat" layoutX="47.0" layoutY="92.0" text="email:">
+                                    <font>
+                                        <Font name="Arial Black" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="telefon" layoutX="47.0" layoutY="115.0" text="telefon:">
+                                    <font>
+                                        <Font name="Arial Black" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="nr_contract" layoutX="47.0" layoutY="138.0" text="telefon de contact:">
+                                    <font>
+                                        <Font name="Arial Black" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="adresa" layoutX="47.0" layoutY="184.0" text="Adresa:">
+                                    <font>
+                                        <Font name="Arial Black" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="cnp" layoutX="47.0" layoutY="238.0" text="CNP:">
+                                    <font>
+                                        <Font name="Arial Black" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="iban" layoutX="47.0" layoutY="261.0" text="IBAN:">
+                                    <font>
+                                        <Font name="Arial Black" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="683.0" layoutY="27.0" text="- admin" textFill="#bcbaba">
+                                    <font>
+                                        <Font name="Arial Black" size="27.0" />
+                                    </font>
+                                </Label>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="UTILIZATORI">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="883.0">
+                     <children>
+                        <Label layoutX="26.0" layoutY="16.0" text="Cauta utilizator">
+                           <font>
+                              <Font name="Arial Black" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="nume_utilizator" layoutX="158.0" layoutY="45.0" promptText="NUME" />
+                        <TextField fx:id="prenume_utilizator" layoutX="344.0" layoutY="45.0" promptText="PRENUME" />
+                        <ComboBox fx:id="rol_utilizator" editable="true" layoutX="528.0" layoutY="45.0" prefWidth="150.0">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="student" />
+                                    <String fx:value="profesor" />
+                                    <String fx:value="fara rol" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                        <Button layoutX="707.0" layoutY="45.0" mnemonicParsing="false" onAction="#cautaUtilizator" style="-fx-background-color: #b6ceff;" text="cauta" />
+                        <TableView fx:id="tabel_utilizatori" layoutX="22.0" layoutY="93.0" prefHeight="200.0" prefWidth="844.0">
+                          <columns>
+                            <TableColumn fx:id="id_tabel" prefWidth="44.33333206176758" text="user_id" />
+                            <TableColumn fx:id="nume_tabel" prefWidth="87.33332824707031" text="Nume" />
+                              <TableColumn fx:id="prenume_tabel" prefWidth="89.66667175292969" text="Prenume" />
+                              <TableColumn fx:id="cnp_tabel" prefWidth="101.0" text="CNP" />
+                              <TableColumn fx:id="adresa_tabel" prefWidth="88.66665649414062" text="Adresa" />
+                              <TableColumn fx:id="telefon_tabel" prefWidth="114.33334350585938" text="telefon" />
+                              <TableColumn fx:id="email_tabel" prefWidth="105.66668701171875" text="email" />
+                              <TableColumn fx:id="iban_tabel" prefWidth="129.0" text="IBAN" />
+                              <TableColumn fx:id="contract_tabel" prefWidth="85.6666259765625" text="nr_contract" />
+                          </columns>
+                        </TableView>
+                        <TextField fx:id="nume_modificat" layoutX="26.0" layoutY="341.0" promptText="NUME" />
+                        <TextField fx:id="prenume_modificat" layoutX="193.0" layoutY="341.0" promptText="PRENUME" />
+                        <TextField fx:id="cnp_modificat" layoutX="356.0" layoutY="341.0" promptText="CNP" />
+                        <Label fx:id="id_modificat" layoutX="26.0" layoutY="313.0" text="id">
+                           <font>
+                              <Font name="Arial Black" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="adresa_modificat" layoutX="520.0" layoutY="341.0" promptText="ADRESA" />
+                        <TextField fx:id="tel_modificat" layoutX="684.0" layoutY="341.0" promptText="TELEFON" />
+                        <TextField fx:id="email_modificat" layoutX="54.0" layoutY="396.0" prefHeight="25.0" prefWidth="189.0" promptText="EMAIL" />
+                        <TextField fx:id="iban_modificat" layoutX="255.0" layoutY="396.0" prefHeight="25.0" prefWidth="221.0" promptText="IBAN" />
+                        <TextField fx:id="contract_modificat" layoutX="486.0" layoutY="396.0" promptText="NR CONTRACT" />
+                        <Button layoutX="51.0" layoutY="440.0" mnemonicParsing="false" onAction="#modificaUtilizator" style="-fx-background-color: #b6ceff;" text="MODIFICA">
+                           <font>
+                              <Font name="Arial Black" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="157.0" layoutY="441.0" onAction="#stergeUtilizator" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="STERGE">
+                           <font>
+                              <Font name="Arial Black" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="250.0" onAction="#adaugaProfesor" layoutY="440.0" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA PROFESOR">
+                           <font>
+                              <Font name="Arial Black" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="428.0" layoutY="440.0" onAction="#adaugaStudent" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ADAUGA STUDENT">
+                           <font>
+                              <Font name="Arial Black" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="599.0" layoutY="440.0" onAction="#asignareActivitate" mnemonicParsing="false" style="-fx-background-color: #b6ceff;" text="ASIGNARE ACTIVITATE">
+                           <font>
+                              <Font name="Arial Black" size="13.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="parola_modificata" layoutX="642.0" layoutY="396.0" promptText="PAROLA" />
+                     </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="DISCIPLINE">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="324.0" layoutY="73.0" text="Adauga o disciplina">
+                           <font>
+                              <Font name="Arial Black" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="176.0" layoutY="177.0" text="NUME:">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <TextField fx:id="nume_disciplina_adaugata" layoutX="444.0" layoutY="178.0" promptText="NUME" />
+                        <TextField fx:id="descriere_disciplina_adaugata" layoutX="286.0" layoutY="222.0" prefHeight="25.0" prefWidth="512.0" promptText="DESCRIERE" />
+                        <Button layoutX="637.0" layoutY="384.0" mnemonicParsing="false" onAction="#adaugaDisciplina" style="-fx-background-color: #b6ceff;" text="ADAUGA">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Label layoutX="166.0" layoutY="221.0" text="DESCRIERE:">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label layoutX="152.0" layoutY="281.0" text="DATA INCEPUT:">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <Label layoutX="160.0" layoutY="317.0" text="DATA FINAL:">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Label>
+                        <DatePicker fx:id="data_inceput_adaugare" layoutX="441.0" layoutY="277.0" prefHeight="25.0" prefWidth="152.0" />
+                        <DatePicker fx:id="data_final_adaugare" layoutX="441.0" layoutY="313.0" prefHeight="25.0" prefWidth="152.0" />
+                     </children></AnchorPane>
+                    </content>
+                </Tab>
+            <Tab text="CURSURI">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@style.css">
+                        <children>
+                            <TextField fx:id="cauta_curs_nume" layoutX="232.0" layoutY="59.0" prefHeight="25.0" prefWidth="378.0" promptText="Introdu numele cursului pe care vrei sa il cauti" />
+                            <Label layoutX="375.0" layoutY="14.0" text="Cauti un curs?">
+                                <font>
+                                    <Font name="Arial Black" size="18.0" />
+                                </font>
+                            </Label>
+                            <Button fx:id="cauta" layoutX="628.0" layoutY="56.0" mnemonicParsing="false" onAction="#cautaCursButton" style="-fx-background-color: #b6ceff;" text="cauta">
+                                <font>
+                                    <Font name="Arial Black" size="14.0" />
+                                </font>
+                            </Button>
+                            <Label fx:id="nume_curs" layoutX="136.0" layoutY="88.0" prefHeight="29.0" prefWidth="499.0" text="Nume curs:">
+                                <font>
+                                    <Font name="Arial" size="16.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="data_inceput_curs" layoutX="408.0" layoutY="317.0" prefHeight="19.0" prefWidth="179.0" text="Data inceput:">
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="data_final_curs" layoutX="610.0" layoutY="317.0" prefHeight="19.0" prefWidth="203.0" text="Data final:">
+                                <font>
+                                    <Font size="13.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="pondere_curs" layoutX="138.0" layoutY="317.0" text="Pondere curs:" />
+                            <Label fx:id="pondere_seminar" layoutX="138.0" layoutY="341.0" text="Pondere seminar:" />
+                            <Label fx:id="pondere_laborator" layoutX="138.0" layoutY="365.0" text="Pondere laborator:" />
+                            <TableView fx:id="tabel_profesori" layoutX="134.0" layoutY="189.0" prefHeight="126.0" prefWidth="647.0">
+                                <columns>
+                                    <TableColumn fx:id="colProfesorCurs" prefWidth="186.0" text="Profesori care predau cursul" />
+                                    <TableColumn fx:id="colProfesorSeminar" prefWidth="219.0" text="Profesori care predau semniarul" />
+                                    <TableColumn fx:id="colProfesorLaborator" prefWidth="240.0" text="Profesori care predau laboratorul" />
+                                </columns>
+                            </TableView>
+                            <TextArea fx:id="descriere_curs" layoutX="134.0" layoutY="115.0" prefHeight="67.0" prefWidth="647.0" wrapText="true" />
+                        <Button layoutX="655.0" layoutY="408.0" mnemonicParsing="false" onAction="#veziStudentiCurs" style="-fx-background-color: #b6ceff;" text="Vezi studenti inscrisi" />
+                        </children></AnchorPane>
+                </content>
+            </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+
+
+
+</AnchorPane>

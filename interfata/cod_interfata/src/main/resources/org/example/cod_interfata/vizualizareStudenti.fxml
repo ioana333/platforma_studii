@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.cod_interfata.VizualizareStudentiController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <Label fx:id="disciplina_grupa" layoutX="34.0" layoutY="14.0" prefHeight="27.0" prefWidth="495.0" text="Membrii grupei de studiu la ....">
+            <font>
+                <Font name="Arial Black" size="18.0" />
+            </font>
+        </Label>
+        <TableView fx:id="tabel_membrii" layoutX="34.0" layoutY="79.0" prefHeight="305.0" prefWidth="545.0" style="-fx-background-radius: 20;">
+            <columns>
+                <TableColumn fx:id="nume_membru" prefWidth="269.0" text="NUME" />
+                <TableColumn fx:id="prenume_membru" prefWidth="275.0" text="PRENUME" />
+            </columns>
+            <effect>
+                <DropShadow height="105.76" radius="51.707499999999996" width="103.07" />
+            </effect>
+        </TableView>
+    </children>
+
+
+
+</AnchorPane>

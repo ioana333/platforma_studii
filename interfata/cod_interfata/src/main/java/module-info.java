@@ -13,6 +13,7 @@ module org.example.cod_interfata {
     requires jdk.compiler;
     requires java.desktop;
     requires java.sql;
+    requires mysql.connector.j;
 
     opens org.example.cod_interfata to javafx.fxml;
     exports org.example.cod_interfata;
