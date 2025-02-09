@@ -2,6 +2,5 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b2edc42a-0ff0-436e-a050-9583995354a9/console_19.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/baza_de_date/var11-dump.sql" dialect="MySQL" />
   </component>
 </project>
